@@ -1,26 +1,44 @@
 import type { GenerateRequest, GenerateResponse } from './generate.contract';
+import { OllamaService } from '@src/ai-models/ollama.service';
 import fs from 'fs';
 import path from 'path';
 
 export class GenerateService {
   private readonly logsDir = path.join(process.cwd(), process.env.LOGS_DIR || 'logs');
+  private readonly ollamaService: OllamaService;
 
   constructor() {
     // Ensure logs directory exists
     if (!fs.existsSync(this.logsDir)) {
       fs.mkdirSync(this.logsDir, { recursive: true });
     }
+
+    this.ollamaService = new OllamaService();
   }
 
-  generateResponse(request: GenerateRequest): GenerateResponse {
-    const staticResponse =
-      'This is a static response from the offline prompt service. The request was processed successfully, but this is a canned response for testing purposes.';
+  async generateResponse(request: GenerateRequest): Promise<GenerateResponse> {
+    let response: string;
+
+    if (request.canned) {
+      // Return canned response
+      response = 'This is a canned response for testing purposes.';
+    } else {
+      // Use Ollama service to generate real response
+      try {
+        response = await this.ollamaService.generateResponse(request.prompt);
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error('Error generating response from Ollama:', error);
+        // Fallback to canned response if Ollama fails
+        response = 'This is a canned response for testing purposes.';
+      }
+    }
 
     // Log the interaction
-    this.logInteraction(request.prompt, staticResponse);
+    this.logInteraction(request.prompt, response);
 
     return {
-      response: staticResponse
+      response
     };
   }
 

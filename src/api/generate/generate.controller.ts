@@ -9,24 +9,11 @@ export class GenerateController {
     this.generateService = new GenerateService();
   }
 
-  generate = (req: Request, res: Response) => {
+  generate = async (req: Request, res: Response) => {
     try {
-      // Validate request body
-      const body = req.body as Partial<GenerateRequest>;
-
-      if (!body.prompt) {
-        return res.status(400).json({ error: 'Prompt is required' });
-      }
-
-      if (typeof body.prompt !== 'string') {
-        return res.status(400).json({ error: 'Prompt must be a string' });
-      }
-
-      if (body.prompt.trim().length === 0) {
-        return res.status(400).json({ error: 'Prompt must not be empty' });
-      }
-
-      const response = this.generateService.generateResponse({ prompt: body.prompt });
+      // req.body is already validated by Zodios middleware
+      const validatedBody = req.body as GenerateRequest;
+      const response = await this.generateService.generateResponse(validatedBody);
       res.json(response);
     } catch (error) {
       // eslint-disable-next-line no-console

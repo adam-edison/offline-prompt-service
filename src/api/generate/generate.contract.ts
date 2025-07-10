@@ -2,7 +2,19 @@ import { z } from 'zod';
 import { makeApi } from '@zodios/core';
 
 const generateRequestSchema = z.object({
-  prompt: z.string().min(1, 'Prompt must not be empty')
+  prompt: z
+    .string({
+      required_error: 'Prompt is required',
+      invalid_type_error: 'Prompt must be a string'
+    })
+    .trim()
+    .min(1, 'Prompt must not be empty'),
+  canned: z
+    .boolean({
+      invalid_type_error: 'Canned must be a boolean'
+    })
+    .optional()
+    .default(false)
 });
 
 const generateResponseSchema = z.object({
@@ -17,8 +29,8 @@ export const generateApi = makeApi([
   {
     method: 'post',
     path: '/generate',
-    description: 'Generate static AI response for given prompt',
-    summary: 'Generate static AI response for given prompt',
+    description: 'Generate AI response for given prompt (canned or from Ollama)',
+    summary: 'Generate AI response for given prompt (canned or from Ollama)',
     requestFormat: 'json',
     parameters: [
       {
@@ -37,6 +49,9 @@ export const generateApi = makeApi([
     ]
   }
 ]);
+
+// Export schemas for use in controllers
+export { generateRequestSchema, generateResponseSchema, errorResponseSchema };
 
 export type GenerateRequest = z.infer<typeof generateRequestSchema>;
 export type GenerateResponse = z.infer<typeof generateResponseSchema>;

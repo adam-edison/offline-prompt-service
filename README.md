@@ -54,6 +54,8 @@ cp .env.example .env
 Edit `.env` to customize settings:
 
 - `LOGS_DIR`: Directory for log files (default: `logs`)
+- `OLLAMA_BASE_URL`: Base URL for Ollama API (required, example: `http://localhost:11434`)
+- `OLLAMA_MODEL`: Default AI model to use (required, example: `llama3.2:1b`)
 
 ### Logging System
 
@@ -83,13 +85,15 @@ Start the Ollama service using Docker:
 # Start Ollama in the background
 docker-compose up -d
 
-# Pull a lightweight model (recommended for Mac Mini M1)
+# Pull the model specified in your .env file (default: llama3.2:1b)
 docker exec -it offline-prompt-ollama ollama pull llama3.2:1b
 
-# Alternative models (choose one based on your needs):
+# Alternative models (choose one based on your needs and update OLLAMA_MODEL in .env):
 # docker exec -it offline-prompt-ollama ollama pull gemma2:2b  # 2GB model
 # docker exec -it offline-prompt-ollama ollama pull qwen2.5:1.5b  # 1.5GB model
 ```
+
+**Important**: Make sure to update your `.env` file with the correct `OLLAMA_MODEL` value matching the model you pulled.
 
 Verify Ollama is running:
 
@@ -97,7 +101,7 @@ Verify Ollama is running:
 curl http://localhost:11434/api/tags
 ```
 
-Test Prompt:
+Test Prompt to ensure Ollama is working properly:
 
 ```bash
 curl -X POST http://localhost:11434/api/generate -H "Content-Type: application/json" -d \
@@ -218,6 +222,7 @@ The Docker configuration is optimized for Mac Mini M1 with <2GB RAM usage:
 - **Persistent storage**: Models are stored in a Docker volume
 
 Recommended models for low-memory usage:
+
 - `llama3.2:1b` (~1GB) - Best balance of performance and size
 - `gemma2:2b` (~1.4GB) - Good performance, slightly larger
 - `qwen2.5:1.5b` (~1.1GB) - Efficient alternative

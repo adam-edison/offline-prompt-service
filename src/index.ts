@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import 'dotenv/config';
 import { createApp } from '@src/app';
 
 const PORT = process.env.PORT || 3000;
