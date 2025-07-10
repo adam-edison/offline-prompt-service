@@ -21,5 +21,17 @@
   "bugs": {
     "url": "https://github.com/adam-edison/offline-prompt-service/issues"
   },
-  "homepage": "https://github.com/adam-edison/offline-prompt-service#readme"
+  "homepage": "https://github.com/adam-edison/offline-prompt-service#readme",
+  "dependencies": {
+    "@zodios/core": "^10.9.6",
+    "@zodios/express": "^10.6.1",
+    "@zodios/openapi": "^10.5.0",
+    "eslint": "^9.30.1",
+    "express": "^4.21.2",
+    "prettier": "^3.6.2",
+    "swagger-ui-express": "^5.0.1",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4",
+    "zod": "^3.25.76"
+  }
 }
