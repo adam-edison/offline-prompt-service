@@ -1,6 +1,7 @@
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
 import { RootController } from '@src/api/root/root.controller';
+import { GenerateController } from '@src/api/generate/generate.controller';
 import { createOpenApiSpec } from '@src/openapi';
 
 export function createApp() {
@@ -9,8 +10,10 @@ export function createApp() {
   app.use(express.json());
 
   const rootController = new RootController();
+  const generateController = new GenerateController();
 
   app.get('/', rootController.getRoot);
+  app.post('/generate', generateController.generate);
 
   const openApiSpec = createOpenApiSpec();
 

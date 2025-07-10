@@ -1,5 +1,6 @@
 import { openApiBuilder } from '@zodios/openapi';
 import { rootApi } from '@src/api/root/root.contract';
+import { generateApi } from '@src/api/generate/generate.contract';
 
 export function createOpenApiSpec() {
   // Generate OpenAPI spec from zodios contracts
@@ -9,10 +10,12 @@ export function createOpenApiSpec() {
     description: 'Backend node.js service with AI prompting using offline local model'
   })
     .addPublicApi(rootApi)
+    .addPublicApi(generateApi)
     .setCustomTagsFn((path) => {
       // Custom tag mapping for all paths
       const tagMap: Record<string, string[]> = {
-        '/': ['health']
+        '/': ['health'],
+        '/generate': ['generate']
       };
       return tagMap[path] || [];
     })
@@ -35,6 +38,10 @@ export function createOpenApiSpec() {
     {
       name: 'health',
       description: 'Health check operations'
+    },
+    {
+      name: 'generate',
+      description: 'AI text generation operations'
     }
   ];
 
