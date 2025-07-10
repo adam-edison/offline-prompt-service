@@ -42,6 +42,38 @@ This project was originally built for the [ModelVault take-home assignment](./AS
 npm install
 ```
 
+### Environment Setup
+
+Copy the example environment file and configure as needed:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` to customize settings:
+
+- `LOGS_DIR`: Directory for log files (default: `logs`)
+
+### Logging System
+
+The service features an hourly rotating log system that automatically creates new log files each hour. All API interactions are logged to JSONL files with the following naming pattern:
+
+```
+logs/log-YYYY-MM-DD-HH.jsonl
+```
+
+Examples:
+
+- `logs/log-2025-07-10-09.jsonl` (for 9 AM)
+- `logs/log-2025-07-10-10.jsonl` (for 10 AM)
+- `logs/log-2025-07-10-23.jsonl` (for 11 PM)
+
+Each log entry contains:
+
+- `timestamp`: ISO 8601 timestamp
+- `input`: The user's prompt
+- `output`: The generated response
+
 ### Development
 
 ```bash
