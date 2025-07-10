@@ -5,7 +5,7 @@ A modern Node.js REST API template with TypeScript, automatic documentation, and
 ## 🛠 Technology Choices & Architecture
 
 ### Core Stack
-- **Node.js + TypeScript**: Strong typing, excellent ecosystem, and rapid development
+- **Node.js + TypeScript**: Chosen for rapid development, strong typing, and excellent ecosystem
 - **Express.js**: Lightweight, battle-tested web framework with minimal overhead
 - **Zodios**: Type-safe API contracts with automatic OpenAPI generation - eliminates manual documentation
 - **Vitest**: Fast, modern testing framework with excellent TypeScript support
@@ -26,19 +26,26 @@ A modern Node.js REST API template with TypeScript, automatic documentation, and
 
 ### Prerequisites
 - Node.js 18+
-- npm
+- npm or yarn
 
-### Installation & Development
+### Installation
 ```bash
 npm install
+```
+
+### Development
+```bash
 npm run dev
 ```
 Server starts at `http://localhost:3000`
 
 ### Testing & Quality
 ```bash
-# Run tests
+# Run all tests
 npm test
+
+# Manual API testing
+# Visit http://localhost:3000/api-docs for interactive documentation
 
 # Code quality
 npm run lint
@@ -50,9 +57,19 @@ npm run build && npm start
 
 ## 📚 API Documentation
 
+Once running, visit:
 - **Homepage**: `http://localhost:3000` - Service overview with links
 - **API Docs**: `http://localhost:3000/api-docs` - Interactive Swagger UI
-- **OpenAPI Spec**: `http://localhost:3000/api-docs/openapi.json`
+- **OpenAPI Spec**: `http://localhost:3000/api-docs/openapi.json` - Raw specification
+
+## 🧪 Testing
+
+The project includes comprehensive testing setup:
+- Unit tests for services and controllers
+- API contract validation
+- Documentation generation tests
+
+Run with: `npm test`
 
 ## 📁 Project Structure
 
@@ -73,6 +90,7 @@ vitest.config.ts        # Test configuration
 
 ## 🔧 Available Scripts
 
+See `package.json` for complete list. Key commands:
 - `npm run dev` - Development server with TypeScript
 - `npm test` - Run test suite
 - `npm run build` - Production build
