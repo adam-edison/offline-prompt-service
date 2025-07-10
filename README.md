@@ -35,6 +35,7 @@ This project was originally built for the [ModelVault take-home assignment](./AS
 
 - Node.js 18+
 - npm or yarn
+- Docker and Docker Compose (for local Ollama setup)
 
 ### Installation
 
@@ -53,6 +54,8 @@ cp .env.example .env
 Edit `.env` to customize settings:
 
 - `LOGS_DIR`: Directory for log files (default: `logs`)
+- `OLLAMA_BASE_URL`: Base URL for Ollama API (required, example: `http://localhost:11434`)
+- `OLLAMA_MODEL`: Default AI model to use (required, example: `llama3.2:1b`)
 
 ### Logging System
 
@@ -73,6 +76,37 @@ Each log entry contains:
 - `timestamp`: ISO 8601 timestamp
 - `input`: The user's prompt
 - `output`: The generated response
+
+### Local AI Setup with Ollama (approx 15 min)
+
+Start the Ollama service using Docker:
+
+```bash
+# Start Ollama in the background
+docker-compose up -d
+
+# Pull the model specified in your .env file (default: llama3.2:1b)
+docker exec -it offline-prompt-ollama ollama pull llama3.2:1b
+
+# Alternative models (choose one based on your needs and update OLLAMA_MODEL in .env):
+# docker exec -it offline-prompt-ollama ollama pull gemma2:2b  # 2GB model
+# docker exec -it offline-prompt-ollama ollama pull qwen2.5:1.5b  # 1.5GB model
+```
+
+**Important**: Make sure to update your `.env` file with the correct `OLLAMA_MODEL` value matching the model you pulled.
+
+Verify Ollama is running:
+
+```bash
+curl http://localhost:11434/api/tags
+```
+
+Test Prompt to ensure Ollama is working properly:
+
+```bash
+curl -X POST http://localhost:11434/api/generate -H "Content-Type: application/json" -d \
+'{"model": "llama3.2:1b", "prompt": "Say hi", "stream": false}'
+```
 
 ### Development
 
@@ -144,6 +178,8 @@ See `package.json` for complete list. Key commands:
 - `npm start` - Run production build
 - `npm run lint` - Code linting
 - `npm run format` - Code formatting
+- `docker-compose up -d` - Start Ollama service
+- `docker-compose down` - Stop Ollama service
 
 ## 🧪 Testing Strategy
 
@@ -169,10 +205,27 @@ The project uses Vitest for testing with:
 
 1. Clone or fork this repository
 2. Update `package.json` with your project details
-3. Modify the root endpoint in `src/api/root/` or create new API modules
-4. Add your business logic in the service layer
-5. Write tests in the `test/` directory
-6. Build and deploy
+3. Start Ollama with `docker-compose up -d` and pull a model
+4. Modify the root endpoint in `src/api/root/` or create new API modules
+5. Add your business logic in the service layer
+6. Write tests in the `test/` directory
+7. Build and deploy
+
+### Docker Setup Notes
+
+The Docker configuration is optimized for Mac Mini M1 with <2GB RAM usage:
+
+- **Memory limit**: 2GB max, 512MB reserved
+- **Single model loading**: Only one model loaded at a time
+- **Parallel processing**: Limited to 1 for memory efficiency
+- **Flash attention**: Enabled for better performance
+- **Persistent storage**: Models are stored in a Docker volume
+
+Recommended models for low-memory usage:
+
+- `llama3.2:1b` (~1GB) - Best balance of performance and size
+- `gemma2:2b` (~1.4GB) - Good performance, slightly larger
+- `qwen2.5:1.5b` (~1.1GB) - Efficient alternative
 
 This template provides a solid foundation for building modern, type-safe REST APIs with excellent developer experience.
 

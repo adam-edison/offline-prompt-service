@@ -81,7 +81,7 @@ describe('POST /generate', () => {
     const app = createApp();
     const prompt = 'Test prompt for logging';
 
-    await request(app).post('/generate').send({ prompt }).expect(200);
+    await request(app).post('/generate').send({ prompt, canned: true }).expect(200);
 
     // Check that logs directory exists
     expect(fs.existsSync(logsDir)).toBe(true);
@@ -111,7 +111,7 @@ describe('POST /generate', () => {
     const app = createApp();
     const prompt = 'Say hello in one word';
 
-    const response = await request(app).post('/generate').send({ prompt }).expect(200);
+    const response = await request(app).post('/generate').send({ prompt, canned: true }).expect(200);
 
     // The response should be a static string
     expect(response.body).toHaveProperty('response');
@@ -126,7 +126,7 @@ describe('POST /generate', () => {
     const app = createApp();
     const prompts = ['What is 2+2?', 'Name a color', 'Say yes or no'];
 
-    const promises = prompts.map((prompt) => request(app).post('/generate').send({ prompt }).expect(200));
+    const promises = prompts.map((prompt) => request(app).post('/generate').send({ prompt, canned: true }).expect(200));
 
     const responses = await Promise.all(promises);
 
@@ -143,4 +143,52 @@ describe('POST /generate', () => {
     const logLines = logContent.trim().split('\n');
     expect(logLines.length).toBe(3);
   });
+
+  test('should return canned response when canned is true', async () => {
+    const app = createApp();
+    const prompt = 'What is the capital of France?';
+
+    const response = await request(app).post('/generate').send({ prompt, canned: true }).expect(200);
+
+    expect(response.body).toHaveProperty('response');
+    expect(typeof response.body.response).toBe('string');
+    expect(response.body.response.length).toBeGreaterThan(0);
+
+    // Should be a predictable canned response
+    expect(response.body.response).toBe('This is a canned response for testing purposes.');
+  });
+
+  test('should use real Ollama model when canned is false', async () => {
+    const app = createApp();
+    const prompt = 'Say hi';
+
+    const response = await request(app).post('/generate').send({ prompt, canned: false }).expect(200);
+
+    expect(response.body).toHaveProperty('response');
+    expect(typeof response.body.response).toBe('string');
+    expect(response.body.response.length).toBeGreaterThan(0);
+
+    // Should not be the canned response (real Ollama response)
+    expect(response.body.response).not.toBe('This is a canned response for testing purposes.');
+
+    // Should be a real response from Ollama (likely contains greeting)
+    expect(response.body.response.toLowerCase()).toMatch(/hi|hello|greetings|assist/);
+  }, 15000);
+
+  test('should default to real Ollama model when canned is not provided', async () => {
+    const app = createApp();
+    const prompt = 'Say hi';
+
+    const response = await request(app).post('/generate').send({ prompt }).expect(200);
+
+    expect(response.body).toHaveProperty('response');
+    expect(typeof response.body.response).toBe('string');
+    expect(response.body.response.length).toBeGreaterThan(0);
+
+    // Should not be the canned response (defaults to false, uses real Ollama)
+    expect(response.body.response).not.toBe('This is a canned response for testing purposes.');
+
+    // Should be a real response from Ollama
+    expect(response.body.response.toLowerCase()).toMatch(/hi|hello|greetings|assist/);
+  }, 15000);
 });
