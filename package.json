@@ -1,0 +1,25 @@
+{
+  "name": "offline-prompt-service",
+  "version": "1.0.0",
+  "description": "Backend node.js service with AI prompting using offline local model",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adam-edison/offline-prompt-service.git"
+  },
+  "keywords": [
+    "node",
+    "AI",
+    "prompt",
+    "offline"
+  ],
+  "author": "Adam Edison",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/adam-edison/offline-prompt-service/issues"
+  },
+  "homepage": "https://github.com/adam-edison/offline-prompt-service#readme"
+}
