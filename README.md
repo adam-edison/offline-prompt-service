@@ -9,18 +9,21 @@ This project was originally built for the [ModelVault take-home assignment](./AS
 ## 🛠 Technology Choices & Architecture
 
 ### Core Stack
+
 - **Node.js + TypeScript**: Chosen for rapid development, strong typing, and excellent ecosystem
 - **Express.js**: Lightweight, battle-tested web framework with minimal overhead
 - **Zodios**: Type-safe API contracts with automatic OpenAPI generation - eliminates manual documentation
 - **Vitest**: Fast, modern testing framework with excellent TypeScript support
 
 ### Architecture Decisions
+
 - **Contract-first API design**: Using Zodios for type-safe endpoints and automatic documentation
 - **Layered architecture**: Controller → Service pattern for clean separation of concerns
 - **OpenAPI integration**: Auto-generated documentation at `/api-docs` with custom content-type handling
 - **Path aliases**: TypeScript path mapping for clean imports (`@src/`)
 
 ### Development Tooling
+
 - **ESLint + Prettier**: Code quality and consistent formatting
 - **TypeScript strict mode**: Maximum type safety
 - **ts-node**: Direct TypeScript execution for development
@@ -29,21 +32,26 @@ This project was originally built for the [ModelVault take-home assignment](./AS
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 18+
 - npm or yarn
 
 ### Installation
+
 ```bash
 npm install
 ```
 
 ### Development
+
 ```bash
 npm run dev
 ```
+
 Server starts at `http://localhost:3000`
 
 ### Testing & Quality
+
 ```bash
 # Run all tests
 npm test
@@ -62,6 +70,7 @@ npm run build && npm start
 ## 📚 API Documentation
 
 Once running, visit:
+
 - **Homepage**: `http://localhost:3000` - Service overview with links
 - **API Docs**: `http://localhost:3000/api-docs` - Interactive Swagger UI
 - **OpenAPI Spec**: `http://localhost:3000/api-docs/openapi.json` - Raw specification
@@ -69,6 +78,7 @@ Once running, visit:
 ## 🧪 Testing
 
 The project includes comprehensive testing setup:
+
 - Unit tests for services and controllers
 - API contract validation
 - Documentation generation tests
@@ -95,6 +105,7 @@ vitest.config.ts        # Test configuration
 ## 🔧 Available Scripts
 
 See `package.json` for complete list. Key commands:
+
 - `npm run dev` - Development server with TypeScript
 - `npm test` - Run test suite
 - `npm run build` - Production build
@@ -105,6 +116,7 @@ See `package.json` for complete list. Key commands:
 ## 🧪 Testing Strategy
 
 The project uses Vitest for testing with:
+
 - Unit tests for services and controllers
 - API contract validation
 - Type-safe test utilities
@@ -112,6 +124,7 @@ The project uses Vitest for testing with:
 ## 🎯 Template Features
 
 ✅ **What's Included**:
+
 - REST API foundation with Express + TypeScript
 - Type-safe contracts with automatic documentation
 - Clean, modular architecture
@@ -134,6 +147,7 @@ This template provides a solid foundation for building modern, type-safe REST AP
 ## 📋 Assignment Context
 
 This template was created to fulfill the [ModelVault API assignment](./ASSIGNMENT.md), which calls for:
+
 - A local REST API with `/generate` endpoint for prompt processing
 - Offline operation (no cloud APIs)
 - JSON logging to `logs/log.jsonl`

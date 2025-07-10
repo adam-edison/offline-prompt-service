@@ -25,25 +25,22 @@ Your API should support:
 markup
 POST /generate
 
-
 **Input:**
 
 json
 { "prompt": "..." }
-
 
 **Output:**
 
 json
 { "response": "..." }
 
-
 And additionally:
 
 - Log all input/output interactions to a local file: logs/log.jsonl
 - Include a clear and concise README.md with:
-    - Setup instructions
-    - (Optional) Notes on your implementation or tradeoffs
+  - Setup instructions
+  - (Optional) Notes on your implementation or tradeoffs
 
 ---
 
@@ -66,11 +63,10 @@ And additionally:
 
 bash
 minivault-api/
-├── app.py / main.js           # API code
-├── logs/log.jsonl             # Logs of prompt/response
+├── app.py / main.js # API code
+├── logs/log.jsonl # Logs of prompt/response
 ├── requirements.txt / package.json
 └── README.md
-
 
 ---
 
