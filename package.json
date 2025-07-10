@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc --project tsconfig.build.json && tsc-alias",
     "start": "node dist/index.js",
-    "dev": "nodemon --exec \"ts-node -r tsconfig-paths/register src/index.ts\"",
+    "dev": "ts-node -r tsconfig-paths/register src/index.ts",
     "test": "vitest run",
     "lint": "eslint . --ext .js,.ts,.mjs",
     "lint:fix": "eslint . --ext .js,.ts,.mjs --fix",
@@ -53,7 +53,6 @@
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.5.1",
     "globals": "^16.3.0",
-    "nodemon": "^3.0.2",
     "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0"
