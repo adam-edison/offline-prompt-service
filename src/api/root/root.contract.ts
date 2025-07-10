@@ -9,6 +9,8 @@ export const rootApi = makeApi([
   {
     method: 'get',
     path: '/',
+    description: 'Health check endpoint',
+    summary: 'Get service health status',
     response: rootResponseSchema
   }
 ]);
