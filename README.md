@@ -2,6 +2,10 @@
 
 A modern Node.js REST API template with TypeScript, automatic documentation, and comprehensive tooling setup.
 
+## 🎯 Project Overview
+
+This project was originally built for the [ModelVault take-home assignment](./ASSIGNMENT.md) but has evolved into a comprehensive Node.js API template. The assignment required building a lightweight local REST API for offline AI prompt processing, which served as the foundation for this well-structured, production-ready template.
+
 ## 🛠 Technology Choices & Architecture
 
 ### Core Stack
@@ -126,3 +130,13 @@ The project uses Vitest for testing with:
 6. Build and deploy
 
 This template provides a solid foundation for building modern, type-safe REST APIs with excellent developer experience.
+
+## 📋 Assignment Context
+
+This template was created to fulfill the [ModelVault API assignment](./ASSIGNMENT.md), which calls for:
+- A local REST API with `/generate` endpoint for prompt processing
+- Offline operation (no cloud APIs)
+- JSON logging to `logs/log.jsonl`
+- Clean, modular code structure
+
+The template exceeds the assignment requirements by providing a full development framework with testing, documentation, and modern tooling.
