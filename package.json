@@ -4,7 +4,11 @@
   "description": "Backend node.js service with AI prompting using offline local model",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js,.ts,.mjs",
+    "lint:fix": "eslint . --ext .js,.ts,.mjs --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "repository": {
     "type": "git",
@@ -26,12 +30,20 @@
     "@zodios/core": "^10.9.6",
     "@zodios/express": "^10.6.1",
     "@zodios/openapi": "^10.5.0",
-    "eslint": "^9.30.1",
     "express": "^4.21.2",
-    "prettier": "^3.6.2",
     "swagger-ui-express": "^5.0.1",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4",
     "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.1",
+    "@typescript-eslint/eslint-plugin": "^8.36.0",
+    "@typescript-eslint/parser": "^8.36.0",
+    "eslint": "^9.30.1",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.1",
+    "globals": "^16.3.0",
+    "prettier": "^3.6.2"
   }
 }
