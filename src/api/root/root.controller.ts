@@ -10,6 +10,6 @@ export class RootController {
 
   getRoot = (_req: Request, res: Response) => {
     const response = this.rootService.getWelcomeMessage();
-    res.json(response);
+    res.type('text/html').send(response);
   };
 }

@@ -28,7 +28,7 @@ describe('API Docs Endpoint', () => {
       paths: {
         '/': {
           get: expect.objectContaining({
-            summary: 'Health check endpoint'
+            summary: 'Service homepage with links to documentation'
           })
         }
       }
